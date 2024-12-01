@@ -8,30 +8,18 @@ if (!day) {
 }
 
 const dayDir = path.join(__dirname, `../src/day${day.padStart(2, '0')}`);
-if (fs.existsSync(dayDir)) {
+const testDir = path.join(__dirname, `../tests/day${day.padStart(2, '0')}`);
+const testFile = path.join(testDir, `day${day.padStart(2, '0')}.test.ts`);
+
+// Check if the day folder already exists
+if (fs.existsSync(dayDir) || fs.existsSync(testDir)) {
   console.error(`Day ${day} already exists`);
   process.exit(1);
 }
 
+// Create day directory and files in src
 fs.mkdirSync(dayDir);
-fs.writeFileSync(path.join(dayDir, 'input.txt'), '');
-fs.writeFileSync(path.join(dayDir, 'helper.ts'), 'export const helper = () => {\n  return;\n};\n');
-fs.writeFileSync(
-  path.join(dayDir, 'part1.ts'),
-  `import * as helpers from './helper';\n\nexport const solvePart1 = () => {\n  // Use helpers if needed\n  return;\n};\n`
-);
-fs.writeFileSync(
-  path.join(dayDir, 'part2.ts'),
-  `import * as helpers from './helper';\n\nexport const solvePart2 = () => {\n  // Use helpers if needed\n  return;\n};\n`
-);
-fs.writeFileSync(
-  path.join(dayDir, 'index.ts'),
-  `import { solvePart1 } from './part1';\nimport { solvePart2 } from './part2';\n\nconsole.log('Part 1:', solvePart1());\nconsole.log('Part 2:', solvePart2());\n`
-);
-
-fs.writeFileSync(
-  path.join(dayDir, 'helper.ts'),
-  `import { readInput } from '../utils/file-reader';
+fs.writeFileSync(path.join(dayDir, 'helper.ts'), `import { readInput } from '../utils/file-reader';
 
 /**
  * Reads the input.txt file for this day and returns its content as a string.
@@ -40,7 +28,73 @@ fs.writeFileSync(
 export const getInput = (): string => {
   return readInput('${day.padStart(2, '0')}');
 };
+`);
+fs.writeFileSync(
+  path.join(dayDir, 'part1.ts'),
+  `import * as helpers from './helper';
+
+export const solvePart1 = (): any => {
+  const input = helpers.getInput();
+  // Implement solution logic
+  return;
+};
+`
+);
+fs.writeFileSync(
+  path.join(dayDir, 'part2.ts'),
+  `import * as helpers from './helper';
+
+export const solvePart2 = (): any => {
+  const input = helpers.getInput();
+  // Implement solution logic
+  return;
+};
+`
+);
+fs.writeFileSync(
+  path.join(dayDir, 'index.ts'),
+  `import { solvePart1 } from './part1';
+import { solvePart2 } from './part2';
+
+console.log('Part 1:', solvePart1());
+console.log('Part 2:', solvePart2());
+`
+);
+fs.writeFileSync(path.join(dayDir, 'input.txt'), ''); // Main input file
+
+// Create test directory and files in tests
+fs.mkdirSync(testDir);
+fs.writeFileSync(path.join(testDir, 'example-part1.txt'), ''); // Example input for Part 1
+fs.writeFileSync(path.join(testDir, 'example-part2.txt'), ''); // Example input for Part 2
+fs.writeFileSync(path.join(testDir, 'custom-input.txt'), '');  // Custom edge-case input
+fs.writeFileSync(
+  testFile,
+  `import { solvePart1 } from '../../src/day${day.padStart(2, '0')}/part1';
+import { solvePart2 } from '../../src/day${day.padStart(2, '0')}/part2';
+import { readExampleInput, readCustomInput } from '../utils/test-utils';
+
+describe('Day ${day}', () => {
+  test('Part 1 Example', () => {
+    const input = readExampleInput('${day.padStart(2, '0')}', 1);
+    expect(solvePart1(input)).toBe(/* expected result */);
+  });
+
+  test('Part 2 Example', () => {
+    const input = readExampleInput('${day.padStart(2, '0')}', 2);
+    expect(solvePart2(input)).toBe(/* expected result */);
+  });
+
+  test('Part 1 Custom Input', () => {
+    const input = readCustomInput('${day.padStart(2, '0')}');
+    expect(solvePart1(input)).toBe(/* expected result */);
+  });
+
+  test('Part 2 Custom Input', () => {
+    const input = readCustomInput('${day.padStart(2, '0')}');
+    expect(solvePart2(input)).toBe(/* expected result */);
+  });
+});
 `
 );
 
-console.log(`Day ${day} setup complete.`);
+console.log(`Day ${day} setup complete with test and example files.`);
