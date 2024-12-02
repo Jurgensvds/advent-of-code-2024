@@ -63,7 +63,7 @@ console.log('Part 2:', solvePart2());
 );
 
 
-fs.writeFileSync(path.join(dayDir, 'input.txt'), ''); // Example input for Part 1
+fs.writeFileSync(path.join(dayDir, 'input.txt'), ''); // Main input file
 
 // Create test directory and files in tests
 fs.mkdirSync(testDir);
