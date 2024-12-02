@@ -7,9 +7,10 @@ if (!day) {
   process.exit(1);
 }
 
-const dayDir = path.join(__dirname, `../src/day${day.padStart(2, '0')}`);
-const testDir = path.join(__dirname, `../tests/day${day.padStart(2, '0')}`);
-const testFile = path.join(testDir, `day${day.padStart(2, '0')}.test.ts`);
+const paddedDay = day.padStart(2, '0'); // Ensure the day number is two digits
+const dayDir = path.join(__dirname, `../src/day${paddedDay}`);
+const testDir = path.join(__dirname, `../tests/day${paddedDay}`);
+const testFile = path.join(testDir, `day${paddedDay}.test.ts`);
 
 // Check if the day folder already exists
 if (fs.existsSync(dayDir) || fs.existsSync(testDir)) {
@@ -26,7 +27,7 @@ fs.writeFileSync(path.join(dayDir, 'helper.ts'), `import { readInput } from '../
  * @returns The input file content as a string.
  */
 export const getInput = (): string => {
-  return readInput('${day.padStart(2, '0')}');
+  return readInput('${paddedDay}');
 };
 `);
 fs.writeFileSync(
@@ -60,7 +61,6 @@ console.log('Part 1:', solvePart1());
 console.log('Part 2:', solvePart2());
 `
 );
-fs.writeFileSync(path.join(dayDir, 'input.txt'), ''); // Main input file
 
 // Create test directory and files in tests
 fs.mkdirSync(testDir);
@@ -69,29 +69,33 @@ fs.writeFileSync(path.join(testDir, 'example-part2.txt'), ''); // Example input 
 fs.writeFileSync(path.join(testDir, 'custom-input.txt'), '');  // Custom edge-case input
 fs.writeFileSync(
   testFile,
-  `import { solvePart1 } from '../../src/day${day.padStart(2, '0')}/part1';
-import { solvePart2 } from '../../src/day${day.padStart(2, '0')}/part2';
+  `import { solvePart1 } from '../../src/day${paddedDay}/part1';
+import { solvePart2 } from '../../src/day${paddedDay}/part2';
 import { readExampleInput, readCustomInput } from '../utils/test-utils';
 
-describe('Day ${day}', () => {
+describe('Day ${parseInt(day)}', () => {
   test('Part 1 Example', () => {
-    const input = readExampleInput('${day.padStart(2, '0')}', 1);
-    expect(solvePart1(input)).toBe(/* expected result */);
+    const input = readExampleInput('${paddedDay}', 1);
+    jest.spyOn(require('../../src/day${paddedDay}/helper'), 'getInput').mockReturnValue(input);
+    expect(solvePart1()).toBe(/* expected result */);
   });
 
   test('Part 2 Example', () => {
-    const input = readExampleInput('${day.padStart(2, '0')}', 2);
-    expect(solvePart2(input)).toBe(/* expected result */);
+    const input = readExampleInput('${paddedDay}', 2);
+    jest.spyOn(require('../../src/day${paddedDay}/helper'), 'getInput').mockReturnValue(input);
+    expect(solvePart2()).toBe(/* expected result */);
   });
 
   test('Part 1 Custom Input', () => {
-    const input = readCustomInput('${day.padStart(2, '0')}');
-    expect(solvePart1(input)).toBe(/* expected result */);
+    const input = readCustomInput('${paddedDay}');
+    jest.spyOn(require('../../src/day${paddedDay}/helper'), 'getInput').mockReturnValue(input);
+    expect(solvePart1()).toBe(/* expected result */);
   });
 
   test('Part 2 Custom Input', () => {
-    const input = readCustomInput('${day.padStart(2, '0')}');
-    expect(solvePart2(input)).toBe(/* expected result */);
+    const input = readCustomInput('${paddedDay}');
+    jest.spyOn(require('../../src/day${paddedDay}/helper'), 'getInput').mockReturnValue(input);
+    expect(solvePart2()).toBe(/* expected result */);
   });
 });
 `
