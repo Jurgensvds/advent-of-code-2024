@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:day": "jest tests/day01/day01.test.ts --watch",
+    "test:day": "jest tests/day02/day02.test.ts --watch",
     "day": "node scripts/createDay.js"
   },
   "keywords": [],
