@@ -8,7 +8,7 @@ import * as path from 'path';
  * @returns The content of the example input file.
  */
 export const readExampleInput = (day: string, part: number): string => {
-  const filePath = path.resolve(__dirname, `../src/day${day}/example-part${part}.txt`);
+  const filePath = path.resolve(__dirname, `../day${day}/example-part${part}.txt`);
   if (!fs.existsSync(filePath)) {
     throw new Error(`Example input for Day ${day}, Part ${part} not found at ${filePath}`);
   }
@@ -21,7 +21,7 @@ export const readExampleInput = (day: string, part: number): string => {
  * @returns The content of the custom input file.
  */
 export const readCustomInput = (day: string): string => {
-    const filePath = path.resolve(__dirname, `../src/day${day}/custom-input.txt`);
+    const filePath = path.resolve(__dirname, `../day${day}/custom-input.txt`);
     if (!fs.existsSync(filePath)) {
       throw new Error(`Custom input for Day ${day} not found at ${filePath}`);
     }
