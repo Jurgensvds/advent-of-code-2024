@@ -1,4 +1,5 @@
 import { readInput } from '../utils/file-reader';
+import { get2DGrid } from '../utils/get-2d-grid';
 
 /**
  * Reads the input.txt file for this day and returns its content as a string.
@@ -9,7 +10,5 @@ export const getInput = (): string => {
 };
 
 export const getGrid = (): string[][] => {
-  const input = getInput().trim();
-
-  return input.split('\n').map((row) => row.trim().split(''));
+  return get2DGrid(getInput());
 };
