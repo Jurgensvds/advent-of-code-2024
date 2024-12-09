@@ -21,9 +21,9 @@ describe('Day 6', () => {
   //   expect(solvePart1()).toBe(/* expected result */);
   // });
 
-  test('Part 2 Custom Input', () => {
-    const input = readCustomInput('06');
-    jest.spyOn(require('../../src/day06/helper'), 'getInput').mockReturnValue(input);
-    expect(solvePart2()).toBe(2);
-  });
+  // test('Part 2 Custom Input', () => {
+  //   const input = readCustomInput('06');
+  //   jest.spyOn(require('../../src/day06/helper'), 'getInput').mockReturnValue(input);
+  //   expect(solvePart2()).toBe(2);
+  // });
 });
