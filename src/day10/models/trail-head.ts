@@ -1,4 +1,4 @@
-import { GridCoord } from "./grid-coord";
+import { GridCoord } from "../../utils/get-all-neighbours";
 
 export interface TrailHead {
     startingPosition: GridCoord;

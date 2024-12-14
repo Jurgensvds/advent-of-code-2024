@@ -1,5 +1,5 @@
+import { getAllNeighbors, GridCoord } from '../utils/get-all-neighbours';
 import * as helpers from './helper';
-import { GridCoord } from './models/grid-coord';
 import { TrailHead, TrailPoint } from './models/trail-head';
 
 type Grid = string[][];
@@ -48,7 +48,7 @@ function findAllTrails(trailStart: GridCoord, grid: string[][], maxStepAmount: n
       continue;
     }
 
-    const neighbors = helpers.getAllNeighbors(grid, row, col);
+    const neighbors = getAllNeighbors(grid, row, col);
 
     for (const neighbor of neighbors) {
       const { row: nr, col: nc } = neighbor;

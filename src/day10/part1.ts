@@ -1,5 +1,5 @@
+import { getAllNeighbors, GridCoord } from '../utils/get-all-neighbours';
 import * as helpers from './helper';
-import { GridCoord } from './models/grid-coord';
 import { TrailHead, TrailPoint } from './models/trail-head';
 
 type Grid = string[][];
@@ -61,7 +61,7 @@ function findAllTrailsFromTrailHead(grid: Grid, start: GridCoord): TrailPoint[][
         const nextHeight = currentHeight + 1;
         const nextHeightChar = nextHeight.toString();
 
-        for (const neighbor of helpers.getAllNeighbors( grid, currentPoint.coord.row, currentPoint.coord.col)) {
+        for (const neighbor of getAllNeighbors( grid, currentPoint.coord.row, currentPoint.coord.col)) {
             if (grid[neighbor.row][neighbor.col] === nextHeightChar && !visited[neighbor.row][neighbor.col]) {
                 visited[neighbor.row][neighbor.col] = true;
                 const newPoint: TrailPoint = {

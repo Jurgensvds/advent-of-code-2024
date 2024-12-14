@@ -6,7 +6,7 @@ import { get2DGrid } from '../utils/get-2d-grid';
  * @returns The input file content as a string.
  */
 export const getInput = (): string => {
-  return readInput('10');
+  return readInput('12');
 };
 
 export const getGrid = (): string[][] => {
